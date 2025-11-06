@@ -1,556 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Quantum Hub — Intelligent Health Infrastructure</title>
-  <link rel="icon" type="image/png" href="./assets/qtmhub-logo.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <meta name="description" content="Quantum Hub builds secure, privacy-first health data infrastructure: integrated pipelines, privacy-preserving exchange, ML-driven insights, and digitized reporting for governments and health systems." />
+  <meta name="keywords" content="health data, DHIS2, SORMAS, privacy, homomorphic encryption, predictive analytics, healthcare infrastructure" />
+  <link rel="icon" type="image/webp" href="./assets/qtmhub-logo.webp" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Quantum Hub — Intelligent Health Infrastructure" />
+  <meta property="og:description" content="Secure, privacy-first health data infrastructure and AI-driven public health insights for governments and health systems." />
+  <meta property="og:image" content="./assets/qtmhub-logo.webp" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.example/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Quantum Hub — Intelligent Health Infrastructure" />
+  <meta name="twitter:description" content="Secure, privacy-first health data infrastructure and AI-driven public health insights for governments and health systems." />
+  <meta name="twitter:image" content="./assets/qtmhub-logo.webp" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Quantum Hub",
+    "url":"https://yourdomain.example/",
+    "logo":"https://yourdomain.example/assets/qtmhub-logo.webp",
+    "description":"Secure, privacy-first health data infrastructure and AI-driven public health insights.",
+    "contactPoint":[{"@type":"ContactPoint","email":"admin@qtmhub.com","contactType":"customer service"}]
+  }
+  </script>
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Urbanist:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Preload hero for better Largest Contentful Paint -->
+  <link rel="preload" href="./assets/qtmhub_hero-bg.webp" as="image">
+
   <style>
+    /* Reset-ish */
+    :root{
+      --bg:#f8fafc;
+      --text:#0f172a;
+      --accent:#38bdf8;
+      --surface:#ffffff;
+      --muted:#64748b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f8fafc;
-      color: #0f172a;
+      font-family: 'Urbanist', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
     }
+
+    /* Header / Nav */
     header {
-      padding: 2rem 4rem;
+      padding: 1.25rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #ffffff;
+      background: var(--surface);
       position: sticky;
       top: 0;
-      border-bottom: 1px solid #e2e8f0;
-      z-index: 100;
+      border-bottom: 1px solid #e6eef6;
+      z-index: 1200;
     }
-    nav a {
-      margin-left: 2rem;
-      text-decoration: none;
-      color: #0f172a;
-      font-weight: 500;
+    .logo img{height:40px; display:block}
+    nav{display:flex; align-items:center}
+    nav a{
+      margin-left:1.25rem;
+      color:var(--text);
+      text-decoration:none;
+      font-weight:600;
+      font-size:0.98rem;
     }
+
+    /* Hamburger (hidden on desktop) */
+    .hamburger {
+      display:none;
+      font-size:1.6rem;
+      background:none;
+      border:none;
+      cursor:pointer;
+    }
+
+    /* HERO */
     .hero {
-      position: relative;
-      padding: 6rem 4rem;
-      color: white;
-      text-align: left;
-      overflow: hidden;
-      background: url('./assets/qtmhub_hero-bg.webp') center/cover no-repeat;
+      position:relative;
+      min-height:62vh;
+      display:flex;
+      align-items:center;
+      padding:4rem 3rem;
+      background: center/cover no-repeat url('./assets/qtmhub_hero-bg.webp');
+      overflow:hidden;
+    }
+    /* layered adaptive overlay for readability */
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(2,6,23,0.55) 0%, rgba(2,6,23,0.75) 100%);
+      z-index:1;
+    }
+    .hero-inner{
+      position:relative; z-index:2; max-width:1100px;
+      display:flex; flex-direction:column;
+      gap:1rem;
+      animation: fadeInUp 700ms ease both;
+      font-family: 'Outfit', 'Urbanist', sans-serif;
+    }
+    .hero h1{
+      margin:0;
+      font-family: 'Outfit', sans-serif;
+      color:#ffffff;
+      font-weight:800;
+      font-size:clamp(2rem, 3.2vw, 3.2rem);
+      line-height:1.05;
+      letter-spacing:-0.01em;
+      text-wrap:balance;
+      text-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    }
+    .hero p{
+      margin:0;
+      color: rgba(255,255,255,0.95);
+      font-size:clamp(1rem, 1.2vw, 1.25rem);
+      max-width:720px;
+      text-shadow: 0 3px 10px rgba(2,6,23,0.55);
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.65);
-      z-index: 1;
+    /* CTA group */
+    .cta-group{
+      display:flex;
+      gap:1rem;
+      margin-top:1.25rem;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.9rem 1.2rem;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      border:0;
+      text-decoration:none;
+      font-size:0.98rem;
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .btn.primary{
+      background:var(--accent);
+      color: #06202a;
+      box-shadow: 0 6px 18px rgba(56,189,248,0.12);
+    }
+    .btn.primary:hover{ transform: translateY(-3px) }
+    .btn.secondary{
+      background:transparent;
+      border:2px solid rgba(255,255,255,0.18);
+      color: #fff;
+    }
+    .btn.secondary:hover{ transform: translateY(-3px) }
+
+    /* Sections */
+    main{max-width:1200px; margin:0 auto}
+    .section{ padding:3.5rem 1.5rem; }
+    .section .inner{ max-width:1100px; margin:0 auto; }
+    h2{
+      font-family: 'Outfit', sans-serif;
+      font-weight:700;
+      font-size:clamp(1.25rem,2vw,1.9rem);
+      margin:0 0 .8rem 0;
+      color:var(--text);
+    }
+    p.lead{ color:var(--muted); margin:0 0 1rem 0 }
+
+    /* Cards grid */
+    .cards{
+      display:grid;
+      gap:1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top:1rem;
+    }
+    .card{
+      background:var(--surface);
+      padding:1.25rem;
+      border-radius:12px;
+      border:1px solid #ecf2f8;
+      box-shadow:0 6px 20px rgba(16,24,40,0.04);
+      min-height:120px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+    }
+    .card h3{ font-family:'Outfit',sans-serif; margin:0 0 .5rem 0; font-size:1.05rem }
+    .card p{ margin:0; color:var(--muted); font-size:0.98rem }
+
+    /* Contact form */
+    .contact-form{
+      display:flex; flex-direction:column; gap:.9rem; max-width:520px;
+      margin: 1.5rem auto 0 auto;padding: 1rem;
+    }
+    .contact-form input, .contact-form textarea{
+      padding:.9rem; border-radius:8px; border:1px solid #dbe7f2; font-size:1rem;
+      background:#fff; resize:vertical;width: 100%;box-sizing: border-box;
+    }
+    .contact-form button{
+      padding:.85rem 1rem; border-radius:8px; border:0; background:#06202a; color:#fff; font-weight:700;
+      cursor:pointer;
     }
 
-    .hero h1,
-    .hero p {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-      max-width: 600px;
-      opacity: 0.9;
+    /* Footer */
+    footer.footer{
+      padding:2.25rem 1.5rem; text-align:center; background:#04121a; color:#fff; margin-top:2.5rem;
     }
 
-    @media (max-width: 768px) {
-      nav.nav-links {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #ffffff;
-        padding-top: 8rem;
-        gap: 3rem;
-        align-items: center;
-        justify-content: flex-start;
-        z-index: 2000;
-      }
-      nav.nav-links.show { display: flex; }
-      nav.nav-links a { font-size: 2rem; font-weight: 600; }
-      .hamburger { display: block; z-index: 2100; }
-
-      /* Fully center hero content */
-      .hero {
-        padding: 4rem 1.2rem;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .hero::before { background: rgba(0,0,0,0.82); }
-
-      .hero h1 {
-        font-size: 1.6rem;
-        line-height: 1.3;
-        max-width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .hero p {
-        font-size: 1rem;
-        line-height: 1.45;
-        max-width: 92%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 1rem;
-        opacity: 0.95;
-      }
-
-      .hero h1,
-      .hero p,
-      .cta-group {
-        position: relative;
-        z-index: 3;
-        color: #ffffff !important;
-      }
-
-      /* Center CTA on mobile */
-      .cta-group {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 1rem;
-        margin-top: 2rem;
-      }
-
-      /* Hide secondary CTA */
-      .cta-btn.secondary { display: none; }
-
-      .cta-btn.primary {
-        font-size: 1rem;
-        padding: 0.85rem 1.6rem;
-        width: auto;
-        text-align: center;
-      }
-    }
-
-    /* End override */
-    /* Hide secondary CTA font-size: 1.55rem; line-height: 1.25; max-width: 100%; }
-      .hero p { font-size: 0.9rem; line-height: 1.35; max-width: 100%; opacity: 0.95; }
-
-      /* Center CTA on mobile */
-      .cta-group {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 1rem;
-        margin-top: 1.8rem;
-      }
-
-      /* Hide secondary CTA */
-      .cta-btn.secondary { display: none; }
-
-      .cta-btn.primary {
-        font-size: 1rem;
-        padding: 0.85rem 1.6rem;
-        width: auto;
-        text-align: center;
-      }
-
-    /* End override */
-    /* Hide secondary CTA (Learn More) */
-      .cta-btn.secondary {
-        display: none;
-      }
-
-      /* Keep primary CTA comfortable */
-      .cta-btn.primary {
-        font-size: 1rem;
-        padding: 0.8rem 1.4rem;
-      }
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      max-width: 700px;
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2rem;
-        line-height: 1.2;
-      }
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-      max-width: 600px;
-      opacity: 0.9;
-    }
-    .section {
-      padding: 4rem 4rem;
-    }
-    .section h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      text-align: left;
-    }
-
-    @media (max-width: 768px) {
-      .section h2 {
-        text-align: center;
-        font-size: 1.6rem;
-        line-height: 1.3;
-      }
-      .section p {
-        text-align: center;
-        font-size: 1rem;
-        line-height: 1.5;
-        max-width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      border: 1px solid #e2e8f0;
-    }
-    .card h3 {
-      margin-top: 0;
-      text-align: left;
-    }
-
-    @media (max-width: 768px) {
-      .card h3 {
-        text-align: center;
-        font-size: 1.25rem;
-        line-height: 1.3;
-        margin-bottom: 0.5rem;
-      }
-      .card p {
-        text-align: center;
-        font-size: 0.95rem;
-        line-height: 1.45;
-        max-width: 95%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-    .footer {
-      padding: 3rem 4rem;
-      text-align: center;
-      background: #0f172a;
-      color: white;
-    }
-  .cta-btn {
-      position: relative;
-      z-index: 2;
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      background: #38bdf8;
-      color: #0f172a;
-      font-weight: 700;
-      border-radius: 0.75rem;
-      text-decoration: none;
-      font-size: 1.1rem;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .cta-btn:hover {
-      background: #7dd3fc;
-      transform: translateY(-3px);
-    }
-  .cta-group {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .cta-btn {
-      padding: 1rem 2rem;
-      border-radius: 0.75rem;
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 700;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    .cta-btn.primary {
-      background: #38bdf8;
-      color: #0f172a;
-    }
-
-    .cta-btn.primary:hover {
-      background: #7dd3fc;
-      transform: translateY(-3px);
-    }
-
-    .cta-btn.secondary {
-      background: transparent;
-      border: 2px solid #38bdf8;
-      color: #38bdf8;
-    }
-
-    .cta-btn.secondary:hover {
-      background: rgba(56,189,248,0.2);
-      transform: translateY(-3px);
-    }
-
-    /* Scroll Indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 2rem;
-      opacity: 0.7;
-      animation: bounce 1.5s infinite;
-      z-index: 2;
-    }
-
+    /* Animations */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity:0; transform: translateY(10px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+    .reveal{ opacity:0; transform:translateY(12px); transition: opacity .6s ease, transform .6s ease; will-change:transform,opacity }
+    .reveal.visible{ opacity:1; transform:none }
+
+    /* Responsive tweaks */
+    @media (max-width: 900px){
+      header{ padding:1rem 1.25rem }
+      .hero{ padding:3.25rem 1.25rem; min-height:56vh }
+    }
+    @media (max-width: 640px){
+      .hamburger{ display:block }
+      nav{ display:none }
+      header{ padding:.85rem 1rem }
+      .hero{ padding:2.5rem 0.9rem; min-height:56vh }
+      .cta-group{ flex-direction:column; align-items:center; gap:.75rem }
+      .btn{ width:100%; justify-content:center }
+      .btn.secondary{ width:100%; }
+      .cards{ grid-template-columns:1fr }
+      .contact-form{ width:100%; padding:0 1rem }
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translate(-50%, 0); }
-      50% { transform: translate(-50%, -8px); }
-    }
+    /* Accessibility focus outlines */
+    a:focus, button:focus, input:focus, textarea:focus{ outline:3px solid rgba(56,189,248,0.15); outline-offset:3px }
 
-    /* Animate hero content */
-    .hero h1, .hero p, .cta-group {
-      animation: fadeInUp 1.2s ease forwards;
-    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="./assets/qtmhub-logo.png" alt="Quantum Hub Logo" style="height:40px; width:auto;" />
+  <!-- Header / Nav -->
+  <header role="banner" aria-label="Main Header">
+    <div class="logo" aria-hidden="false">
+      <a href="/" aria-label="Quantum Hub home"><img src="./assets/qtmhub-logo.webp" alt="Quantum Hub Logo"></a>
     </div>
-    <nav class="nav-links">
+
+    <nav class="nav-links" role="navigation" aria-label="Main navigation">
       <a href="#vision">Vision</a>
       <a href="#solutions">Solutions</a>
       <a href="#technology">Technology</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div class="hamburger" onclick="toggleMenu()">
-      &#9776;
-    </div>
+
+    <button class="hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu" id="hamburgerBtn">&#9776;</button>
   </header>
 
-  <style>
-    .hamburger {
-      display: none;
-      font-size: 2rem;
-      cursor: pointer;
-    }
-    @media (max-width: 768px) {
-      nav.nav-links {
-        display: none;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #ffffff;
-        padding-top: 8rem;
-        gap: 3rem;
-        align-items: center;
-        justify-content: flex-start;
-        z-index: 2000;
-      }
-      nav.nav-links.show {
-        display: flex;
-      }
-      nav.nav-links a {
-        font-size: 2rem;
-        font-weight: 600;
-      }
-      .hamburger {
-        display: block;
-        z-index: 2100;
-      }
-    }
-  </style>
+  <!-- Mobile full-screen menu (in DOM, toggled by JS) -->
+  <nav id="mobile-menu" class="nav-links-mobile" aria-hidden="true" style="display:none;"></nav>
 
-  <script>
-    function toggleMenu() {
-      const nav = document.querySelector('.nav-links');
-      nav.classList.toggle('show');
-    }
+  <!-- Hero -->
+  <section class="hero" role="img" aria-label="Abstract technology and health background">
+    <div class="hero-inner" role="presentation">
+      <h1>Building secure, privacy-first health infrastructure that scales.</h1>
+      <p class="lead">Quantum Hub designs interoperable data systems, privacy-preserving exchange, and AI-driven public health insights for governments and large health programs.</p>
 
-    // Close menu when a link is clicked
-    document.addEventListener('DOMContentLoaded', () => {
-      const links = document.querySelectorAll('.nav-links a');
-      const nav = document.querySelector('.nav-links');
-
-      links.forEach(link => {
-        link.addEventListener('click', () => {
-          nav.classList.remove('show');
-        });
-      });
-    });
-  </script>
-
-  <section class="hero">
-    <h1>Building Secure, Intelligent Health Infrastructure for Emerging Economies</h1>
-    <p>Quantum Hub designs scalable, privacy-preserving data systems that power modern healthcare delivery. We help governments and organizations unlock real-time insights, improve public health outcomes, and transition into fully data-driven ecosystems.</p>
-    <div class="cta-group">
-      <a href="#contact" class="cta-btn primary">Get Started</a>
-      <a href="#solutions" class="cta-btn secondary">Learn More</a>
-    </div>
-    
-  </section>
-
-  <section class="section" id="vision">
-    <h2>Our Vision</h2>
-    <p>
-      To lead the transformation of healthcare systems through advanced data engineering, intelligent automation, and secure digital infrastructure, enabling institutions to make faster, smarter, life‑saving decisions.
-    </p>
-  </section>
-
-  <section class="section" id="solutions">
-    <h2>Core Solutions</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Health Data Architecture</h3>
-        <p>Designing unified lakehouses, interoperable pipelines, and standardized data schemas for reliable, high‑quality healthcare data delivery.</p>
-      </div>
-      <div class="card">
-        <h3>Secure Data Exchange</h3>
-        <p>Leveraging encryption, controlled access, and privacy‑preserving computation to ensure safe and compliant data‑sharing across facilities.</p>
-      </div>
-      <div class="card">
-        <h3>AI‑Driven Public Health Insights</h3>
-        <p>Deploying predictive analytics for disease surveillance, resource allocation, and operational optimization across health systems.</p>
-      </div>
-      <div class="card">
-        <h3>Digitized Reporting & Automation</h3>
-        <p>Modernizing manual reporting workflows with digital tools, automated validation, and real‑time monitoring dashboards.</p>
+      <div class="cta-group" aria-hidden="false">
+        <a class="btn primary" href="#contact">Get Started</a>
+        <a class="btn secondary" href="#solutions">Learn More</a>
       </div>
     </div>
   </section>
 
-  <section class="section" id="technology">
-    <h2>Technology Capabilities</h2>
-    <div class="cards">
-      <div class="card"><h3>Interoperability</h3><p>Seamless integration with EMRs, and custom APIs for unified and transparent health reporting.</p></div>
-      <div class="card"><h3>Advanced Cryptography</h3><p>Privacy-focused techniques including homomorphic encryption and secure multi‑party computation.</p></div>
-      <div class="card"><h3>Machine Learning</h3><p>Predictive models for outbreak detection, patient flow forecasting, and operational intelligence.</p></div>
-      <div class="card"><h3>Automation & ETL</h3><p>Automated data ingestion, validation, and standardization pipelines to eliminate manual work and improve accuracy.</p></div>
-    </div>
-  </section>
+  <main>
+    <!-- Vision -->
+    <section id="vision" class="section" aria-labelledby="vision-heading">
+      <div class="inner">
+        <h2 id="vision-heading" class="reveal">Our Vision</h2>
+        <p class="lead reveal">To transform public health through modern data infrastructure, trusted privacy controls, and intelligent analytics that inform faster, fairer decisions.</p>
+      </div>
+    </section>
 
-  <section class="section" id="contact">
-    <h2>Contact Us</h2>
-    <form class="contact-form" action="https://formspree.io/f/xjkpnaey" method="POST" onsubmit="handleSubmit(event)">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    <!-- Solutions -->
+    <section id="solutions" class="section" aria-labelledby="solutions-heading">
+      <div class="inner">
+        <h2 id="solutions-heading" class="reveal">Core Solutions</h2>
+        <div class="cards" id="solutions-cards">
+          <div class="card reveal"><h3>Health Data Architecture</h3><p>Unified lakehouses, standardized schemas and resilient pipelines for reliable analytics.</p></div>
+          <div class="card reveal"><h3>Secure Data Exchange</h3><p>Encryption, role-based access and privacy-preserving computation for compliant sharing.</p></div>
+          <div class="card reveal"><h3>AI-Driven Public Health Insights</h3><p>Forecasting, anomaly detection and operational recommendations to optimize outcomes.</p></div>
+          <div class="card reveal"><h3>Digitized Reporting & Automation</h3><p>Replace manual workflows with digital capture, automated validation, and real-time dashboards.</p></div>
+        </div>
+      </div>
+    </section>
 
-      <!-- Honeypot spam trap -->
-      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+    <!-- Technology -->
+    <section id="technology" class="section" aria-labelledby="tech-heading">
+      <div class="inner">
+        <h2 id="tech-heading" class="reveal">Technology Capabilities</h2>
+        <div class="cards" id="tech-cards">
+          <div class="card reveal"><h3>Interoperability</h3><p>APIs and integrations with EMRs, DHIS2, SORMAS and facility systems.</p></div>
+          <div class="card reveal"><h3>Advanced Cryptography</h3><p>Homomorphic encryption & secure multi-party computation to protect PHI while enabling insights.</p></div>
+          <div class="card reveal"><h3>Machine Learning</h3><p>Operational forecasting, outbreak risk models and resource allocation intelligence.</p></div>
+          <div class="card reveal"><h3>Automation & ETL</h3><p>Robust ingestion, validation, feature stores and pipelines to productionize analytics.</p></div>
+        </div>
+      </div>
+    </section>
 
-      <button type="submit" id="submitBtn">Send Message</button>
-      <p class="form-status" id="formStatus"></p>
-    </form>
-      
+    <!-- Contact -->
+    <section id="contact" class="section" aria-labelledby="contact-heading">
+      <div class="inner">
+        <h2 id="contact-heading" class="reveal">Contact Us</h2>
 
-    <style>
-      .contact-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        max-width: 500px;
-        margin: 1.5rem auto 0 auto;
-        padding: 1rem;
-      }
-      .contact-form input,
-      .contact-form textarea {
-        padding: 1rem;
-        font-size: 1rem;
-        border: 1px solid #cbd5e1;
-        border-radius: 0.5rem;
-        width: 100%;
-        box-sizing: border-box;
-      }
-      .contact-form button {
-        padding: 1rem;
-        background: #0f172a;
-        color: white;
-        font-size: 1rem;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      }
-      .contact-form button:hover {
-        background: #334155;
-      }
-    </style>
+        <form class="contact-form reveal" action="https://formspree.io/f/xjkpnaey" method="POST" onsubmit="handleSubmit(event)" aria-label="Contact form">
+          <input type="text" name="name" placeholder="Your Name" required aria-required="true" />
+          <input type="email" name="email" placeholder="Your Email" required aria-required="true" />
+          <textarea name="message" rows="5" placeholder="Your Message" required aria-required="true"></textarea>
 
-    <p>
-    <h2>Connect With Us</h2>
-    <p>Interested in partnering or investing? Quantum Hub is building the foundation for the future of digital health infrastructure. Let's build it together.</p>
-    <p><strong>Email:</strong> admin@qtmhub.com</p>
-  </section>
+          <!-- Honeypot -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
-  <footer class="footer">
-    © 2025 Quantum Hub — Intelligent Health Infrastructure
+          <button id="submitBtn" type="submit">Send Message</button>
+          <p id="formStatus" role="status" aria-live="polite" style="min-height:1.6em"></p>
+        </form>
+
+        <h2 class="reveal" style="margin-top:2rem">Connect With Us</h2>
+        <p class="reveal">Interested in partnering or investing? Reach out for project inquiries and demos.</p>
+        <p class="reveal"><strong>Email:</strong> admin@qtmhub.com</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div style="max-width:1100px;margin:0 auto;padding:0 1.25rem">© 2025 Quantum Hub — Intelligent Health Infrastructure</div>
   </footer>
-<script>
-    async function handleSubmit(event) {
-      event.preventDefault();
 
-      const form = event.target;
+  <!-- Scripts: menu, mobile menu population, intersection observer (stagger), form handler -->
+  <script>
+    /* NAV / MOBILE MENU */
+    (function(){
+      const hamburger = document.getElementById('hamburgerBtn') || document.querySelector('.hamburger');
+      const navLinks = document.querySelector('nav.nav-links');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function openMobileMenu(){
+        // clone nav links into the mobile menu container (if empty)
+        if (mobileMenu && mobileMenu.children.length === 0) {
+          const clone = navLinks.cloneNode(true);
+          clone.style.display = 'flex';
+          clone.style.flexDirection = 'column';
+          clone.style.alignItems = 'center';
+          clone.style.gap = '1.25rem';
+          clone.querySelectorAll('a').forEach(a => {
+            a.style.color = '#06202a';
+            a.style.fontSize = '1.25rem';
+            a.style.fontWeight = '700';
+          });
+          mobileMenu.appendChild(clone);
+        }
+        mobileMenu.style.display = 'block';
+        mobileMenu.setAttribute('aria-hidden','false');
+        hamburger.setAttribute('aria-expanded','true');
+      }
+      function closeMobileMenu(){
+        mobileMenu.style.display = 'none';
+        mobileMenu.setAttribute('aria-hidden','true');
+        hamburger.setAttribute('aria-expanded','false');
+      }
+
+      // toggle button
+      if (hamburger) {
+        hamburger.addEventListener('click', () => {
+          if (mobileMenu.style.display === 'block') closeMobileMenu(); else openMobileMenu();
+        });
+      }
+
+      // close mobile when clicking any link inside
+      document.addEventListener('click', (e) => {
+        if (e.target.matches('nav.nav-links a') && window.innerWidth <= 768) {
+          closeMobileMenu();
+        }
+        if (e.target.closest('#mobile-menu') && e.target.tagName === 'A') {
+          closeMobileMenu();
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobileMenu();
+      });
+    })();
+
+    /* STAGGERED REVEAL: intersection observer */
+    (function(){
+      const revealEls = Array.from(document.querySelectorAll('.reveal'));
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // apply small stagger by delaying child reveals for card groups
+            if (entry.target.closest('.cards')) {
+              const cards = entry.target.closest('.cards').querySelectorAll('.reveal');
+              cards.forEach((c, i) => setTimeout(()=> c.classList.add('visible'), i*120));
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold: 0.12});
+      revealEls.forEach(el => observer.observe(el));
+    })();
+
+    /* FORM HANDLER (Formspree) */
+    async function handleSubmit(e){
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('submitBtn');
       const status = document.getElementById('formStatus');
-      const submitBtn = document.getElementById('submitBtn');
 
+      // basic client-side validation
+      if (!form.checkValidity()) {
+        status.textContent = 'Please fill required fields.';
+        status.style.color = '#d9534f';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
       status.textContent = '';
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
 
       try {
-        const response = await fetch(form.action, {
+        const res = await fetch(form.action, {
           method: 'POST',
           body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
-
-        if (response.ok) {
+        if (res.ok) {
           status.textContent = '✅ Message sent successfully!';
           status.style.color = 'green';
           form.reset();
         } else {
-          status.textContent = '❌ Something went wrong. Please try again.';
+          const data = await res.json().catch(()=>null);
+          status.textContent = data && data.error ? data.error : '❌ Something went wrong.';
           status.style.color = 'red';
         }
-      } catch (error) {
-        status.textContent = '❌ Network error. Please try again later.';
+      } catch (err) {
+        status.textContent = '❌ Network error. Try again later.';
         status.style.color = 'red';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
       }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Message';
     }
+
+    // Respect 3-second rule: make hero visible quickly for slow networks
+    // If the hero image is slow, ensure text renders before it by setting background fallback color (already done).
   </script>
 </body>
 </html>

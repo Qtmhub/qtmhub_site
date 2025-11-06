@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantum Hub — Intelligent Health Infrastructure</title>
+  <link rel="icon" type="image/png" href="./assets/qtmhub-logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    header {
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid #e2e8f0;
+      z-index: 100;
+    }
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 500;
+    }
+    .hero {
+      position: relative;
+      padding: 6rem 4rem;
+      color: white;
+      text-align: left;
+      overflow: hidden;
+      background: url('./assets/qtmhub_hero-bg.webp') center/cover no-repeat;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 1;
+    }
+
+    .hero h1,
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      max-width: 600px;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      nav.nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #ffffff;
+        padding-top: 8rem;
+        gap: 3rem;
+        align-items: center;
+        justify-content: flex-start;
+        z-index: 2000;
+      }
+      nav.nav-links.show { display: flex; }
+      nav.nav-links a { font-size: 2rem; font-weight: 600; }
+      .hamburger { display: block; z-index: 2100; }
+
+      /* Fully center hero content */
+      .hero {
+        padding: 4rem 1.2rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .hero::before { background: rgba(0,0,0,0.82); }
+
+      .hero h1 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero p {
+        font-size: 1rem;
+        line-height: 1.45;
+        max-width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1rem;
+        opacity: 0.95;
+      }
+
+      .hero h1,
+      .hero p,
+      .cta-group {
+        position: relative;
+        z-index: 3;
+        color: #ffffff !important;
+      }
+
+      /* Center CTA on mobile */
+      .cta-group {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      /* Hide secondary CTA */
+      .cta-btn.secondary { display: none; }
+
+      .cta-btn.primary {
+        font-size: 1rem;
+        padding: 0.85rem 1.6rem;
+        width: auto;
+        text-align: center;
+      }
+    }
+
+    /* End override */
+    /* Hide secondary CTA font-size: 1.55rem; line-height: 1.25; max-width: 100%; }
+      .hero p { font-size: 0.9rem; line-height: 1.35; max-width: 100%; opacity: 0.95; }
+
+      /* Center CTA on mobile */
+      .cta-group {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 1rem;
+        margin-top: 1.8rem;
+      }
+
+      /* Hide secondary CTA */
+      .cta-btn.secondary { display: none; }
+
+      .cta-btn.primary {
+        font-size: 1rem;
+        padding: 0.85rem 1.6rem;
+        width: auto;
+        text-align: center;
+      }
+
+    /* End override */
+    /* Hide secondary CTA (Learn More) */
+      .cta-btn.secondary {
+        display: none;
+      }
+
+      /* Keep primary CTA comfortable */
+      .cta-btn.primary {
+        font-size: 1rem;
+        padding: 0.8rem 1.4rem;
+      }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      max-width: 700px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+      }
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      max-width: 600px;
+      opacity: 0.9;
+    }
+    .section {
+      padding: 4rem 4rem;
+    }
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .section h2 {
+        text-align: center;
+        font-size: 1.6rem;
+        line-height: 1.3;
+      }
+      .section p {
+        text-align: center;
+        font-size: 1rem;
+        line-height: 1.5;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+    }
+    .card h3 {
+      margin-top: 0;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .card h3 {
+        text-align: center;
+        font-size: 1.25rem;
+        line-height: 1.3;
+        margin-bottom: 0.5rem;
+      }
+      .card p {
+        text-align: center;
+        font-size: 0.95rem;
+        line-height: 1.45;
+        max-width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    .footer {
+      padding: 3rem 4rem;
+      text-align: center;
+      background: #0f172a;
+      color: white;
+    }
+  .cta-btn {
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: #38bdf8;
+      color: #0f172a;
+      font-weight: 700;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .cta-btn:hover {
+      background: #7dd3fc;
+      transform: translateY(-3px);
+    }
+  .cta-group {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .cta-btn {
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .cta-btn.primary {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .cta-btn.primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-3px);
+    }
+
+    .cta-btn.secondary {
+      background: transparent;
+      border: 2px solid #38bdf8;
+      color: #38bdf8;
+    }
+
+    .cta-btn.secondary:hover {
+      background: rgba(56,189,248,0.2);
+      transform: translateY(-3px);
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      opacity: 0.7;
+      animation: bounce 1.5s infinite;
+      z-index: 2;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -8px); }
+    }
+
+    /* Animate hero content */
+    .hero h1, .hero p, .cta-group {
+      animation: fadeInUp 1.2s ease forwards;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="./assets/qtmhub-logo.png" alt="Quantum Hub Logo" style="height:40px; width:auto;" />
+    </div>
+    <nav class="nav-links">
+      <a href="#vision">Vision</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#technology">Technology</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      &#9776;
+    </div>
+  </header>
+
+  <style>
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      nav.nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #ffffff;
+        padding-top: 8rem;
+        gap: 3rem;
+        align-items: center;
+        justify-content: flex-start;
+        z-index: 2000;
+      }
+      nav.nav-links.show {
+        display: flex;
+      }
+      nav.nav-links a {
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      .hamburger {
+        display: block;
+        z-index: 2100;
+      }
+    }
+  </style>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.querySelector('.nav-links');
+      nav.classList.toggle('show');
+    }
+
+    // Close menu when a link is clicked
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('.nav-links a');
+      const nav = document.querySelector('.nav-links');
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('show');
+        });
+      });
+    });
+  </script>
+
+  <section class="hero">
+    <h1>Building Secure, Intelligent Health Infrastructure for Emerging Economies</h1>
+    <p>Quantum Hub designs scalable, privacy-preserving data systems that power modern healthcare delivery. We help governments and organizations unlock real-time insights, improve public health outcomes, and transition into fully data-driven ecosystems.</p>
+    <div class="cta-group">
+      <a href="#contact" class="cta-btn primary">Get Started</a>
+      <a href="#solutions" class="cta-btn secondary">Learn More</a>
+    </div>
+    
+  </section>
+
+  <section class="section" id="vision">
+    <h2>Our Vision</h2>
+    <p>
+      To lead the transformation of healthcare systems through advanced data engineering, intelligent automation, and secure digital infrastructure, enabling institutions to make faster, smarter, life‑saving decisions.
+    </p>
+  </section>
+
+  <section class="section" id="solutions">
+    <h2>Core Solutions</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Health Data Architecture</h3>
+        <p>Designing unified lakehouses, interoperable pipelines, and standardized data schemas for reliable, high‑quality healthcare data delivery.</p>
+      </div>
+      <div class="card">
+        <h3>Secure Data Exchange</h3>
+        <p>Leveraging encryption, controlled access, and privacy‑preserving computation to ensure safe and compliant data‑sharing across facilities.</p>
+      </div>
+      <div class="card">
+        <h3>AI‑Driven Public Health Insights</h3>
+        <p>Deploying predictive analytics for disease surveillance, resource allocation, and operational optimization across health systems.</p>
+      </div>
+      <div class="card">
+        <h3>Digitized Reporting & Automation</h3>
+        <p>Modernizing manual reporting workflows with digital tools, automated validation, and real‑time monitoring dashboards.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="technology">
+    <h2>Technology Capabilities</h2>
+    <div class="cards">
+      <div class="card"><h3>Interoperability</h3><p>Seamless integration with EMRs, and custom APIs for unified and transparent health reporting.</p></div>
+      <div class="card"><h3>Advanced Cryptography</h3><p>Privacy-focused techniques including homomorphic encryption and secure multi‑party computation.</p></div>
+      <div class="card"><h3>Machine Learning</h3><p>Predictive models for outbreak detection, patient flow forecasting, and operational intelligence.</p></div>
+      <div class="card"><h3>Automation & ETL</h3><p>Automated data ingestion, validation, and standardization pipelines to eliminate manual work and improve accuracy.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contact Us</h2>
+    <form class="contact-form" action="https://formspree.io/f/yourFormID" method="POST" onsubmit="handleSubmit(event)">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+
+      <!-- Honeypot spam trap -->
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+      <button type="submit" id="submitBtn">Send Message</button>
+      <p class="form-status" id="formStatus"></p>
+    </form>
+      
+
+    <style>
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 500px;
+        margin: 1.5rem auto 0 auto;
+        padding: 1rem;
+      }
+      .contact-form input,
+      .contact-form textarea {
+        padding: 1rem;
+        font-size: 1rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.5rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .contact-form button {
+        padding: 1rem;
+        background: #0f172a;
+        color: white;
+        font-size: 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      .contact-form button:hover {
+        background: #334155;
+      }
+    </style>
+
+    <p>
+    <h2>Connect With Us</h2>
+    <p>Interested in partnering or investing? Quantum Hub is building the foundation for the future of digital health infrastructure. Let's build it together.</p>
+    <p><strong>Email:</strong> admin@qtmhub.com</p>
+  </section>
+
+  <footer class="footer">
+    © 2025 Quantum Hub — Intelligent Health Infrastructure
+  </footer>
+<script>
+    async function handleSubmit(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const status = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('submitBtn');
+
+      status.textContent = '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          status.textContent = '✅ Message sent successfully!';
+          status.style.color = 'green';
+          form.reset();
+        } else {
+          status.textContent = '❌ Something went wrong. Please try again.';
+          status.style.color = 'red';
+        }
+      } catch (error) {
+        status.textContent = '❌ Network error. Please try again later.';
+        status.style.color = 'red';
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Message';
+    }
+  </script>
+</body>
+</html>
